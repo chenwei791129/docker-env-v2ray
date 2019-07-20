@@ -4,6 +4,7 @@ ENV PORT=10086
 ENV ID=
 ENV ALTERID=64
 
+COPY ["setup-v2ray.sh", "/tmp/"]
 COPY ["config.json", "/etc/v2ray/config.json"]
 
 RUN apk add --update jq
