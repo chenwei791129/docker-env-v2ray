@@ -7,7 +7,7 @@
 $ docker run -d -p <PORT>:<DOCKER-PORT> -e ID="<GUID>" awei/env-v2ray
 ```
 ```e.g.
-$ docker run -d -p 10086:10086 --rm -e ID="877e125d-1ef3-40ef-9329-b7ec62c1072c" awei/env-v2ray
+$ docker run -d -p 10086:10086 -e ID="877e125d-1ef3-40ef-9329-b7ec62c1072c" awei/env-v2ray
 ```
 ### Necessary Environment Variables
 * `ID` Set a GUID
