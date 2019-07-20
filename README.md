@@ -16,7 +16,7 @@ see [www.uuidgenerator.net](https://www.uuidgenerator.net/guid)
 
 ### Option Environment Variables
 * `PORT` Server listen port (default: 10086)
-* `ALTERID` Encryption type (default: 64)
+* `ALTERID` (default: 64)
 
 ## Related Projects
 - [v2ray/official](https://hub.docker.com/r/v2ray/official)
