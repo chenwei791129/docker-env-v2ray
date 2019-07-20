@@ -6,7 +6,7 @@ ENV ALTERID=64
 
 COPY ["config.json", "/etc/v2ray/config.json"]
 
-RUN apk add --update iptables jq
+RUN apk add --update jq
 
 CMD /bin/sh /tmp/setup-v2ray.sh && \
     v2ray -config=/etc/v2ray/config.json
