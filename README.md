@@ -15,8 +15,9 @@ $ docker run -d -p 10086:10086 -e ID="877e125d-1ef3-40ef-9329-b7ec62c1072c" awei
 see [www.uuidgenerator.net](https://www.uuidgenerator.net/guid)
 
 ### Option Environment Variables
-* `PORT` Server listen port (default: 10086)
-* `ALTERID` (default: 64)
+* `PORT` Server listen port (integer,default: 10086)
+* `ALTERID` (integer,default: 64)
+* `DENY_LAN_ACCESS` if set true, v2ray client can't access lan ip (boolean,default: false)
 
 ## Related Projects
 - [v2ray/official](https://hub.docker.com/r/v2ray/official)

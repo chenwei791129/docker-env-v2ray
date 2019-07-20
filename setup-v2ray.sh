@@ -1,5 +1,9 @@
 #!/bin/sh
 
+if [[ ${DENY_LAN_ACCESS} ]]; then
+  cp -f /tmp/config-local-security.json /etc/v2ray/config.json
+fi
+
 if [[ -n "${PORT}" ]]; then
   echo $(cat /etc/v2ray/config.json | jq '.inbounds[0].port = '${PORT}'') > /etc/v2ray/config.json
 fi
