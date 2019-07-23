@@ -10,6 +10,51 @@ e.g.
 ```
 $ docker run -d -p 10086:10086 -e ID="877e125d-1ef3-40ef-9329-b7ec62c1072c" awei/env-v2ray
 ```
+deploy to kubernetes example:
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-v2ray-1
+spec:
+  selector:
+    app: v2ray-1
+  ports:
+    - protocol: TCP
+      port: 10840
+      targetPort: 10086
+      nodePort: 30001
+  type: NodePort
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-v2ray-1
+  labels:
+    app: v2ray-1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: v2ray-1
+  template:
+    metadata:
+      labels:
+        app: v2ray-1
+    spec:
+      containers:
+      - name: v2ray-1
+        image: awei/env-v2ray:latest
+        env:
+        - name: ID
+          value: "39de9465-16a5-499a-93ef-d05e946214ce"
+        - name: DENY_LAN_ACCESS
+          value: "true"
+        ports:
+        - containerPort: 10086
+```
 ### Necessary Environment Variables
 * `ID` Set a UUID
 
