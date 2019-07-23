@@ -4,13 +4,14 @@
 
 [View on Docker Hub](https://hub.docker.com/r/awei/env-v2ray)
 ```console
-$ docker run -d -p <PORT>:<DOCKER-PORT> -e ID="<GUID>" awei/env-v2ray
+$ docker run -d -p <PORT>:<DOCKER-PORT> -e ID="<UUID>" awei/env-v2ray
 ```
-```e.g.
+e.g.
+```
 $ docker run -d -p 10086:10086 -e ID="877e125d-1ef3-40ef-9329-b7ec62c1072c" awei/env-v2ray
 ```
 ### Necessary Environment Variables
-* `ID` Set a GUID
+* `ID` Set a UUID
 
 see [www.uuidgenerator.net](https://www.uuidgenerator.net/guid)
 
