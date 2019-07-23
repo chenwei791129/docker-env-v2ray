@@ -13,7 +13,7 @@ $ docker run -d -p 10086:10086 -e ID="877e125d-1ef3-40ef-9329-b7ec62c1072c" awei
 ### Necessary Environment Variables
 * `ID` Set a UUID
 
-see [www.uuidgenerator.net](https://www.uuidgenerator.net/guid)
+see [www.uuidgenerator.net](https://www.uuidgenerator.net/)
 
 ### Option Environment Variables
 * `PORT` Server listen port (integer,default: 10086)
