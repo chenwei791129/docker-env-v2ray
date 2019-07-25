@@ -13,7 +13,7 @@ $ docker run -d -p 10086:10086 -e VMESS_ID="877e125d-1ef3-40ef-9329-b7ec62c1072c
 ```
 e.g. (Shadowsocks)
 ```shell
-$ docker run -d -p 8388:8388 -e PROTOCOL="shadowsocks" -e SHADOWSOCKS_METHOD="P@ssw0rd" awei/env-v2ray
+$ docker run -d -p 8388:8388 -e PROTOCOL="shadowsocks" -e SHADOWSOCKS_PASSWORD="P@ssw0rd" awei/env-v2ray
 ```
 ### Necessary Environment Variables
 * `[Shadowsocks] SHADOWSOCKS_PASSWORD` Set a password (string,default: "P@ssw0rd")
