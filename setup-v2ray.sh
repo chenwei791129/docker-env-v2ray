@@ -1,21 +1,47 @@
 #!/bin/sh
 
-if [ ${DENY_LAN_ACCESS} == true ]; then
-  echo 'apply DENY_LAN_ACCESS'
-  cp -f /tmp/config-local-security.json /etc/v2ray/config.json
+if [ ${PROTOCOL} == "vmess" ]; then
+  # setup vmess
+  echo '[Info] Protocal is VMess.'
+  echo $(cat /etc/v2ray/config.json | jq '.inbounds += [{"port":10086,"protocol":"vmess","settings":{"clients":[{"id":"60ca58e9-003e-4c01-98de-c2223ae49153","level":1,"alterId":64}]}}]') > /etc/v2ray/config.json
+
+  if [ -n "${VMESS_ID}" ]; then
+    echo '[Info] Setup id.'
+    echo $(cat /etc/v2ray/config.json | jq '.inbounds[0].settings.clients[0].id = "'${VMESS_ID}'"') > /etc/v2ray/config.json
+  fi
+
+  if [ -n "${VMESS_ALTERID}" ]; then
+    echo '[Info] Setup alterId.'
+    echo $(cat /etc/v2ray/config.json | jq '.inbounds[0].settings.clients[0].alterId = '${VMESS_ALTERID}'') > /etc/v2ray/config.json
+  fi
+elif [ ${PROTOCOL} == "shadowsocks" ]; then
+  # setup shadowsocks
+  echo '[Info] Protocal is Shadowsocks.'
+  echo $(cat /etc/v2ray/config.json | jq '.inbounds += [{"port":8388,"protocol":"shadowsocks","network":"tcp,udp","settings":{"method":"chacha20-ietf-poly1305","password":"P@ssw0rd"}}]') > /etc/v2ray/config.json
+
+  if [ -n "${SHADOWSOCKS_PASSWORD}" ]; then
+    echo '[Info] Setup shadowsocks password.'
+    echo $(cat /etc/v2ray/config.json | jq '.inbounds[0].settings.password = "'${SHADOWSOCKS_PASSWORD}'"') > /etc/v2ray/config.json
+  fi
+
+  if [ -n "${SHADOWSOCKS_METHOD}" ]; then
+    echo '[Info] Setup shadowsocks method.'
+    echo $(cat /etc/v2ray/config.json | jq '.inbounds[0].settings.method = "'${SHADOWSOCKS_METHOD}'"') > /etc/v2ray/config.json
+  fi
 fi
 
 if [ -n "${PORT}" ]; then
-  echo 'setup port.'
+  echo '[Info] Setup port.'
   echo $(cat /etc/v2ray/config.json | jq '.inbounds[0].port = '${PORT}'') > /etc/v2ray/config.json
 fi
 
-if [ -n "${ID}" ]; then
-  echo 'setup id.'
-  echo $(cat /etc/v2ray/config.json | jq '.inbounds[0].settings.clients[0].id = "'${ID}'"') > /etc/v2ray/config.json
+if [ ${DENY_LAN_ACCESS} == true ]; then
+  echo '[Info] Apply DENY LAN ACCESS.'
+  # add blackhole outbound for private ip route rule
+  echo $(cat /etc/v2ray/config.json | jq '.outbounds += [{"protocol":"blackhole","settings":{},"tag":"blocked"}]') > /etc/v2ray/config.json
+  # add private ip route rule
+  echo $(cat /etc/v2ray/config.json | jq '. += {"routing":{"rules":[{"type":"field","ip":["geoip:private"],"outboundTag":"blocked"}]}}') > /etc/v2ray/config.json
 fi
 
-if [ -n "${ALTERID}" ]; then
-  echo 'setup alterId.'
-  echo $(cat /etc/v2ray/config.json | jq '.inbounds[0].settings.clients[0].alterId = '${ALTERID}'') > /etc/v2ray/config.json
-fi
+echo '[Debug] Dump config.json:'
+echo $(cat /etc/v2ray/config.json)
