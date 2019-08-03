@@ -14,6 +14,12 @@ if [ ${PROTOCOL} == "vmess" ]; then
     echo '[Info] Setup alterId.'
     echo $(cat /etc/v2ray/config.json | jq '.inbounds[0].settings.clients[0].alterId = '${VMESS_ALTERID}'') > /etc/v2ray/config.json
   fi
+
+  if [ ${VMESS_HTTP2} == true ]; then
+    /root/.acme.sh/acme.sh --issue -d "${VMESS_HTTP2_DOMAIN}" --standalone -k ec-256 --force
+    /root/.acme.sh/acme.sh --installcert -d "${VMESS_HTTP2_DOMAIN}" --fullchainpath /etc/v2ray/v2ray.crt --keypath /etc/v2ray/v2ray.key --ecc
+    echo $(cat /etc/v2ray/config.json | jq '.inbounds[0] += {"streamSettings":{"network":"h2","httpSettings":{"path":"/"},"security":"tls","tlsSettings":{"certificates":[{"certificateFile":"/etc/v2ray/v2ray.crt","keyFile":"/etc/v2ray/v2ray.key"}]}}}') > /etc/v2ray/config.json
+  fi
 elif [ ${PROTOCOL} == "shadowsocks" ]; then
   # setup shadowsocks
   echo '[Info] Protocal is Shadowsocks.'
