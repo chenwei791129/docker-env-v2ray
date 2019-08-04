@@ -72,6 +72,8 @@ spec:
 * `PROTOCOL` (string, default: "vmess", enum: "vmess","shadowsocks")
 * `PORT` Server listen port (integer, vmess-default: 10086, shadowsocks-default: 8388)
 * `[VMess] VMESS_ALTERID` (integer,default: 64)
+* `[VMess] VMESS_HTTP2` (string,enum: "true","false")
+* `[VMess] VMESS_HTTP2_DOMAIN` your domain (string)
 * `[Shadowsocks] SHADOWSOCKS_METHOD` (string,default: "chacha20-ietf-poly1305"), see [encryption-list](https://www.v2ray.com/chapter_02/protocols/shadowsocks.html#encryption-list)
 * `DENY_LAN_ACCESS` if set true, v2ray client can't access lan ip (boolean,default: "false")
 
