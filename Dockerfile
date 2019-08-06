@@ -7,11 +7,11 @@ ENV PROTOCOL="vmess" \
     VMESS_HTTP2_DOMAIN= \
     SHADOWSOCKS_PASSWORD="P@ssw0rd" \
     SHADOWSOCKS_METHOD="chacha20-ietf-poly1305" \
-    DENY_LAN_ACCESS=false \
+    DENY_LAN_ACCESS=true \
     PORT= 
 
 COPY setup-v2ray.sh /tmp/
-COPY config.json /etc/v2ray/config.json
+COPY config.json /etc/v2ray/config.json-default
 
 RUN apk add --update jq curl openssl socat && \
     curl https://get.acme.sh | sh
