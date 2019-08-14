@@ -13,7 +13,7 @@ $ docker run -d -p 10086:10086 -e VMESS_ID="877e125d-1ef3-40ef-9329-b7ec62c1072c
 ```
 e.g. (VMess+h2+tls) need 80 port to get let's encrypt cert
 ```shell
-$ docker run -d -p 80:80 -p 443:443 -e PORT=443 -e VMESS_ID="877e125d-1ef3-40ef-9329-b7ec62c1072c" -e VMESS_HTTP2="true" -e VMESS_HTTP2_DOMAIN="<www.demo.com>" awei/env-v2ray
+$ docker run -d -p 80:80 -p 443:443 -e PORT=443 -e VMESS_ID="877e125d-1ef3-40ef-9329-b7ec62c1072c" -e VMESS_HTTP2="true" -e VMESS_HTTP2_DOMAIN="www.demo.com" awei/env-v2ray
 ```
 e.g. (Shadowsocks)
 ```shell
@@ -79,6 +79,7 @@ spec:
 
 ## Related Projects
 - [v2ray/official](https://hub.docker.com/r/v2ray/official)
+- [Neilpang/acme.sh](https://github.com/Neilpang/acme.sh)
 
 ## License
 The repository is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
