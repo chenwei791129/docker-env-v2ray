@@ -4,20 +4,28 @@
 
 [View on Docker Hub](https://hub.docker.com/r/awei/env-v2ray)
 
+Images are built by GitHub Actions and published to GitHub Container Registry:
+
 ```shell
-$ docker run -d -p <PORT>:<DOCKER-PORT> -e ID="<UUID>" awei/env-v2ray
+$ docker pull ghcr.io/chenwei791129/env-v2ray
+```
+
+The Docker Hub image `awei/env-v2ray` is no longer updated.
+
+```shell
+$ docker run -d -p <PORT>:<DOCKER-PORT> -e ID="<UUID>" ghcr.io/chenwei791129/env-v2ray
 ```
 e.g. (VMess)
 ```shell
-$ docker run -d -p 10086:10086 -e VMESS_ID="877e125d-1ef3-40ef-9329-b7ec62c1072c" awei/env-v2ray
+$ docker run -d -p 10086:10086 -e VMESS_ID="877e125d-1ef3-40ef-9329-b7ec62c1072c" ghcr.io/chenwei791129/env-v2ray
 ```
 e.g. (VMess+h2+tls) need 80 port to get let's encrypt cert
 ```shell
-$ docker run -d -p 80:80 -p 443:443 -e PORT=443 -e VMESS_ID="877e125d-1ef3-40ef-9329-b7ec62c1072c" -e VMESS_HTTP2="true" -e VMESS_HTTP2_DOMAIN="www.demo.com" awei/env-v2ray
+$ docker run -d -p 80:80 -p 443:443 -e PORT=443 -e VMESS_ID="877e125d-1ef3-40ef-9329-b7ec62c1072c" -e VMESS_HTTP2="true" -e VMESS_HTTP2_DOMAIN="www.demo.com" ghcr.io/chenwei791129/env-v2ray
 ```
 e.g. (Shadowsocks)
 ```shell
-$ docker run -d -p 8388:8388 -e PROTOCOL="shadowsocks" -e SHADOWSOCKS_PASSWORD="P@ssw0rd" awei/env-v2ray
+$ docker run -d -p 8388:8388 -e PROTOCOL="shadowsocks" -e SHADOWSOCKS_PASSWORD="P@ssw0rd" ghcr.io/chenwei791129/env-v2ray
 ```
 deploy to kubernetes example:
 ```yaml
@@ -55,7 +63,7 @@ spec:
     spec:
       containers:
       - name: v2ray-1
-        image: awei/env-v2ray:latest
+        image: ghcr.io/chenwei791129/env-v2ray:latest
         env:
         - name: VMESS_ID
           value: "39de9465-16a5-499a-93ef-d05e946214ce"
