@@ -14,7 +14,7 @@ RUN --mount=type=cache,target=/go/pkg/mod \
     go build -trimpath -ldflags="-s -w -buildid=" -o /out/v2ray \
       github.com/v2fly/v2ray-core/v5/main
 
-FROM alpine:3.24.3
+FROM alpine:3.24.4
 
 ENV PROTOCOL="vmess" \
     VMESS_ID= \
